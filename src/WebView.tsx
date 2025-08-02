@@ -187,7 +187,7 @@ const WebView: React.FC<WebViewProps> = ({
           <div 
             onClick={() => !isLoading && setShowChibiDropdown(!showChibiDropdown)}
             style={{
-              width: '100%',
+              width: '80%',
               height: '48px',
               backgroundColor: 'white',
               border: '3px solid #6750a4',
@@ -200,8 +200,8 @@ const WebView: React.FC<WebViewProps> = ({
               opacity: isLoading ? 0.6 : 1
             }}
           >
-            <span>{selectedChibi?.label || 'Select a chibi...'}</span>
-            <span style={{ fontSize: '12px' }}>▼</span>
+            <span style={{ fontSize: '24px' ,color:'#000000'  }}>{selectedChibi?.label || 'Select a chibi...'}</span>
+            <span style={{ fontSize: '12px' ,color:'#000000'  }}>▼</span>
           </div>
           
           {showChibiDropdown && (
@@ -233,7 +233,7 @@ const WebView: React.FC<WebViewProps> = ({
           <div 
             onClick={() => !isLoading && selectedChibi && setShowAnimDropdown(!showAnimDropdown)}
             style={{
-              width: '100%',
+              width: '80%',
               height: '48px',
               backgroundColor: 'white',
               border: '3px solid #6750a4',
@@ -246,8 +246,8 @@ const WebView: React.FC<WebViewProps> = ({
               opacity: (isLoading || !selectedChibi) ? 0.6 : 1
             }}
           >
-            <span>{selectedAnimation || 'Select an animation...'}</span>
-            <span style={{ fontSize: '12px' }}>▼</span>
+            <span style={{ fontSize: '24px' ,color:'#000000'  }}>{selectedAnimation || 'Select an animation...'}</span>
+            <span style={{ fontSize: '12px' ,color:'#000000'  }}>▼</span>
           </div>
           
           {showAnimDropdown && (

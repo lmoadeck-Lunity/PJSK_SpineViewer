@@ -77,7 +77,8 @@ function ViewerMain(props, ref) {
         batcher: null,
         lastFrameTime: null,
         skeletons: {},
-        isRecording: false
+        isRecording: false,
+        renderLoopId: null // Track the current render loop
     });
 
     // Filter v2 chibis from the chibi list
@@ -211,6 +212,9 @@ function ViewerMain(props, ref) {
             }
         }
 
+        // Stop current render loop to prevent multiple loops
+        stopRenderLoop();
+
         setChibiData(prev => ({ ...prev, isLoading: true, error: null }));
 
         try {
@@ -224,6 +228,22 @@ function ViewerMain(props, ref) {
             const atlasExists = await fileExists(atlasPath);
             if (!atlasExists) {
                 throw new Error(`Atlas file not found: ${atlasPath}`);
+            }
+
+            // Clear previous skeleton data to prevent memory issues
+            if (spineRefs.current.skeletons[chibiName]) {
+                delete spineRefs.current.skeletons[chibiName];
+            }
+
+            // Dispose of asset manager resources if they exist
+            if (spineRefs.current.assetManager) {
+                // Remove existing assets for this path to prevent conflicts
+                if (spineRefs.current.assetManager.get(atlasPath)) {
+                    spineRefs.current.assetManager.remove(atlasPath);
+                }
+                if (spineRefs.current.assetManager.get(skeletonPath)) {
+                    spineRefs.current.assetManager.remove(skeletonPath);
+                }
             }
 
             // Load assets
@@ -280,6 +300,10 @@ function ViewerMain(props, ref) {
                 currentAnimation: skeletonData.availableAnimations[0] || null
             }));
 
+            // Reset frame time and restart render loop
+            spineRefs.current.lastFrameTime = Date.now() / 1000;
+            startRenderLoop();
+
             return true;
         } catch (error) {
             console.error('Error in loadSkeletonData:', error);
@@ -308,7 +332,7 @@ function ViewerMain(props, ref) {
         }
     }
 
-    function renderSkeleton(skeleton, state, delta) {
+    const renderSkeleton = useCallback((skeleton, state, delta) => {
         if (!skeleton || !state || !spineRefs.current.ctx) return;
 
         state.update(delta);
@@ -328,28 +352,9 @@ function ViewerMain(props, ref) {
         spineRefs.current.skeletonRenderer.draw(spineRefs.current.batcher, skeleton);
         spineRefs.current.batcher.end();
         spineRefs.current.shader.unbind();
-    }
+    }, [spineSystem.currentSkeleton]);
 
-    function startRenderLoop() {
-        if (!spineSystem.isInitialized || spineRefs.current.isRecording) return;
-
-        const now = Date.now() / 1000;
-        const delta = now - (spineRefs.current.lastFrameTime || now);
-        spineRefs.current.lastFrameTime = now;
-
-        if (spineSystem.currentSkeleton?.skeleton && spineSystem.currentSkeleton?.state) {
-            resize();
-            renderSkeleton(
-                spineSystem.currentSkeleton.skeleton, 
-                spineSystem.currentSkeleton.state, 
-                delta
-            );
-        }
-
-        requestAnimationFrame(startRenderLoop);
-    }
-
-    function resize() {
+    const resize = useCallback(() => {
         if (!spineSystem.currentSkeleton?.bounds || !canvasRef.current) return;
 
         const bounds = spineSystem.currentSkeleton.bounds;
@@ -364,7 +369,42 @@ function ViewerMain(props, ref) {
 
         spineRefs.current.mvp.ortho2d(centerX - width / 2, centerY - height / 2, width, height);
         spineRefs.current.ctx.gl.viewport(0, 0, canvasRef.current.width, canvasRef.current.height);
-    }
+    }, [spineSystem.currentSkeleton]);
+
+    const startRenderLoop = useCallback(() => {
+        if (!spineSystem.isInitialized || spineRefs.current.isRecording) return;
+
+        // Cancel any existing render loop to prevent multiple loops
+        if (spineRefs.current.renderLoopId) {
+            cancelAnimationFrame(spineRefs.current.renderLoopId);
+        }
+
+        function renderFrame() {
+            const now = Date.now() / 1000;
+            const delta = now - (spineRefs.current.lastFrameTime || now);
+            spineRefs.current.lastFrameTime = now;
+
+            if (spineSystem.currentSkeleton?.skeleton && spineSystem.currentSkeleton?.state) {
+                resize();
+                renderSkeleton(
+                    spineSystem.currentSkeleton.skeleton, 
+                    spineSystem.currentSkeleton.state, 
+                    delta
+                );
+            }
+
+            spineRefs.current.renderLoopId = requestAnimationFrame(renderFrame);
+        }
+
+        spineRefs.current.renderLoopId = requestAnimationFrame(renderFrame);
+    }, [spineSystem.isInitialized, spineSystem.currentSkeleton, resize, renderSkeleton]);
+
+    const stopRenderLoop = useCallback(() => {
+        if (spineRefs.current.renderLoopId) {
+            cancelAnimationFrame(spineRefs.current.renderLoopId);
+            spineRefs.current.renderLoopId = null;
+        }
+    }, []);
 
     async function exportGIF(animationName, fps = 30) {
         if (!spineSystem.currentSkeleton || !canvasRef.current) {
@@ -372,6 +412,8 @@ function ViewerMain(props, ref) {
             return false;
         }
 
+        // Stop the render loop during recording
+        stopRenderLoop();
         spineRefs.current.isRecording = true;
         setChibiData(prev => ({ ...prev, isLoading: true }));
 
@@ -425,11 +467,12 @@ function ViewerMain(props, ref) {
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                     
-                    // Reset state
+                    // Reset state and restart render loop
                     spineRefs.current.isRecording = false;
                     setChibiData(prev => ({ ...prev, isLoading: false }));
                     state.setAnimation(0, animationName, true); // Resume looping
-                    startRenderLoop();
+                    spineRefs.current.lastFrameTime = Date.now() / 1000; // Reset frame time
+                    startRenderLoop(); // Restart the render loop
                     resolve(true);
                 });
                 
@@ -442,6 +485,7 @@ function ViewerMain(props, ref) {
                     URL.revokeObjectURL(workerScriptURL);
                     spineRefs.current.isRecording = false;
                     setChibiData(prev => ({ ...prev, isLoading: false }));
+                    startRenderLoop(); // Restart render loop even on abort
                     reject(new Error('GIF export was aborted'));
                 });
 
@@ -472,6 +516,7 @@ function ViewerMain(props, ref) {
             console.error('Error exporting GIF:', error);
             spineRefs.current.isRecording = false;
             setChibiData(prev => ({ ...prev, isLoading: false, error: error.message }));
+            startRenderLoop(); // Restart render loop on error
             return false;
         }
     }
@@ -483,10 +528,16 @@ function ViewerMain(props, ref) {
     }, [initializeSpineSystem, spineSystem.isInitialized]);
 
     useEffect(() => {
-        if (spineSystem.isInitialized && spineSystem.currentSkeleton) {
+        // Only start render loop if we have a skeleton and no loop is currently running
+        if (spineSystem.isInitialized && spineSystem.currentSkeleton && !spineRefs.current.renderLoopId) {
             startRenderLoop();
         }
-    });
+        
+        // Cleanup function to stop render loop when component unmounts
+        return () => {
+            stopRenderLoop();
+        };
+    }, [spineSystem.isInitialized, spineSystem.currentSkeleton, startRenderLoop, stopRenderLoop]);
 
     // Prepare data for WebView
     const webViewData = {
