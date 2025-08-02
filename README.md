@@ -1,38 +1,79 @@
 
-# PJSK SpineViewer - 3rd Anniversary Chibis ONLY 🎉
+# PJSK SpineViewer - 3rd Anniversary Chibis
 
-Welcome to the PJSK SpineViewer project! This tool is designed **exclusively for viewing the 3rd Anniversary Chibis** from Project Sekai. If you are looking for the original v1 viewer, please visit [https://prsk-chibi-viewer.vercel.app/](https://prsk-chibi-viewer.vercel.app/).
+A specialized viewer for **Project Sekai's 3rd Anniversary Chibis**. This tool is designed exclusively for viewing and exporting animations from the v2 chibi files.
+
+> **Note:** For the original v1 chibis and other characters, please visit the [original chibi viewer](https://prsk-chibi-viewer.vercel.app/).
 
 ## Features
 
-- **GIF Exporting**: Easily export your chibi animations as GIFs.
+- **Animation Viewer**: View all available chibi animations
+- **GIF Export**: Export animations as high-quality GIFs
 
-## Acknowledgements
-- This project is inspired by the original [v1 chibi viewer](https://prsk-chibi-viewer.vercel.app/), special thanks to the developers for their work.
-- The viewer utilizes the [Spine Runtimes](http://esotericsoftware.com/spine-runtimes) for rendering animations.
-- The project is built using [React](https://reactjs.org/) and [Vite](https://vitejs.dev/).
+## Prerequisites
 
-## Getting Started
-To run this project locally, you will have to extract the chibi files from the game. The viewer is designed to work with the 3rd Anniversary Chibis, so ensure you have the correct files.
+Before running this project, you'll need to extract the chibi files from the game:
 
-Skeleton JSON files can be found in [sekai.best](https://sekai.best/asset_viewer/area_sd/v2_sd_main/). Atlases can be exported via [sssekai](https://github.com/mos9527/sssekai). Huge props to their work!
+- **Skeleton JSON files**: Available at [sekai.best](https://sekai.best/asset_viewer/area_sd/v2_sd_main/)
+- **Atlas files**: Can be exported using [sssekai](https://github.com/mos9527/sssekai)
+
+> Huge thanks to the developers of these tools!
 
 ## Installation
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/lmoadeck-Lunity/PJSK_SpineViewer.git
-    cd PJSK_SpineViewer
-    ```
-2. Install dependencies:
-    ```bash
-    npm i
-    ```
-3. Start the development server:
-    ```bash
-    npm run dev
-    ```
-4. Open your browser and navigate to `http://localhost:5173/` to view the application.
 
----
+1. **Clone the repository:**
 
-**Note:** This viewer is for the 3rd Anniversary Chibis ONLY. For v1 and other chibis, go to [https://prsk-chibi-viewer.vercel.app/](https://prsk-chibi-viewer.vercel.app/).
+   ```bash
+   git clone https://github.com/lmoadeck-Lunity/PJSK_SpineViewer.git
+   cd PJSK_SpineViewer
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up chibi files:**
+   
+   Place your extracted chibi files in the `public/Files/out` directory with the following structure:
+
+   ```text
+   public/
+   └── Files/
+       ├── out/
+       │   ├── v2_sd_01ichika_casual/
+       │   │   └── sekai_atlas/
+       │   │       ├── sekai_atlas.atlas.txt
+       │   │       └── sekai_atlas.png
+       │   ├── v2_sd_01ichika_school/
+       │   │   └── sekai_atlas/
+       │   │       ├── sekai_atlas.atlas.txt
+       │   │       └── sekai_atlas.png
+       │   └── ... (other character folders)
+       └── skeleton/
+           └── v2_sd_main.json
+   ```
+
+## Usage
+
+1. **Start the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+2. **Open the application:**
+   
+   Navigate to `http://localhost:5173/` in your browser to start viewing chibis!
+
+## Built With
+
+- [React](https://reactjs.org/) - UI framework
+- [Vite](https://vitejs.dev/) - Build tool
+- [Spine Runtimes](http://esotericsoftware.com/spine-runtimes) - Animation rendering
+
+## Acknowledgements
+
+- Inspired by the original [v1 chibi viewer](https://prsk-chibi-viewer.vercel.app/)
+- Special thanks to the [sekai.best](https://sekai.best/) and [sssekai](https://github.com/mos9527/sssekai) teams for their amazing tools
