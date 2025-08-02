@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
-
+/**
+ * 
+ * Im gonna be honest, i designed this for 1280*720. it looks RUBBISH and is UNRESPONSIVE and IDK how to make it so.
+ * help appreciated :3 tysm
+ * 
+ */
 interface ChibiOption {
   value: string;
   label: string;
@@ -149,6 +154,17 @@ const WebView: React.FC<WebViewProps> = ({
         }}>
           Sekai Chibi Viewer
         </h1>
+        <p style={{ color: 'white', fontSize: '14px', marginBottom: '24px' }}>
+          <a
+            href="https://github.com/lmoadeck-Lunity/PJSK_SpineViewer"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: '#90caf9', textDecoration: 'underline' }}
+          >
+            https://github.com/lmoadeck-Lunity/PJSK_SpineViewer
+          </a>
+          </p>
+          
 
         {/* Loading indicator */}
         {isLoading && (
