@@ -14,7 +14,7 @@ A specialized viewer for **Project Sekai's 3rd Anniversary Chibis**. This tool i
 
 Before running this project, you'll need to extract the chibi files from the game:
 
-- **Skeleton JSON files**: Available at [sekai.best](https://sekai.best/asset_viewer/area_sd/v2_sd_main/)
+- **Skeleton JSON files**: Available at [sekai.best](https://sekai.best/asset_viewer/area_sd/v2_sd_main/v2_base_model/)
 - **Atlas files**: Can be exported using [sssekai](https://github.com/mos9527/sssekai)
 
 > Huge thanks to the developers of these tools!
