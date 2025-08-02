@@ -105,7 +105,7 @@ const WebView: React.FC<WebViewProps> = ({
   return (
     <div style={{
       position: 'relative',
-      height: '720px',
+      height: 'vh',
       backgroundColor: '#424242',
       overflow: 'hidden',
       display: 'flex',
