@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState, useImperativeHandle, forwardRef, useCallback } from 'react';
-// Lazy load heavy dependencies
-// import * as Spine from '@esotericsoftware/spine-webgl'; // Use for v2 chibis
+import * as Spine from '@esotericsoftware/spine-webgl'; // Use for v2 chibis
 import GIF from 'gif.js';
-import { loadSpineWebGL, preloadModule } from './utils/lazyLoading';
 // import list123 from './chibi_list.json';
 import chibi_ls from './chibi_v2.json'; // Updated to use v2 chibi list
 import v2AnimationsList from './v2_animations.json';
 // import WebView from './WebView.tsx';
-import LazyWebView from './components/LazyWebView';
+import WebView from './temp_webview';
     // let lastFrameTime = Date.now() / 1000;
 	// // let canvas, context;
 	// // let assetManager;
@@ -52,44 +50,6 @@ import LazyWebView from './components/LazyWebView';
         
     // }
 function ViewerMain(props, ref) {
-    // Store the loaded modules
-    const [Spine, setSpine] = useState(null);
-    const [modulesLoading, setModulesLoading] = useState(true);
-    
-    // Load heavy dependencies on component mount
-    useEffect(() => {
-        const loadDependencies = async () => {
-            try {
-                setModulesLoading(true);
-                console.log('Loading dependencies...');
-                
-                // Load Spine module
-                const SpineModule = await loadSpineWebGL();
-                
-                console.log('Spine module loaded:', SpineModule);
-                
-                // Validate the modules
-                if (!SpineModule) {
-                    throw new Error('Spine WebGL module failed to load');
-                }
-                
-                setSpine(SpineModule);
-                
-                // Use static import for GIF.js
-                console.log('Using static GIF import');
-                console.log('GIF constructor:', GIF);
-                
-            } catch (error) {
-                console.error('Failed to load dependencies:', error);
-                setChibiData(prev => ({ ...prev, error: 'Failed to load required dependencies: ' + error.message }));
-            } finally {
-                setModulesLoading(false);
-            }
-        };
-        
-        loadDependencies();
-    }, []);
-
     // Utility function to get the correct base URL for file loading
     const getBaseUrl = useCallback(() => {
         // Check if we're in development
@@ -190,7 +150,7 @@ function ViewerMain(props, ref) {
     }
 
     const initializeSpineSystem = useCallback(() => {
-        if (!canvasRef.current || !Spine) return false;
+        if (!canvasRef.current) return false;
 
         try {
             canvasRef.current.width = 512;
@@ -224,7 +184,7 @@ function ViewerMain(props, ref) {
             setChibiData(prev => ({ ...prev, error: 'Failed to initialize WebGL/Spine system' }));
             return false;
         }
-    }, [getBaseUrl, Spine]);
+    }, [getBaseUrl]);
 
     function calculateSetupPoseBounds(skeleton) {
         skeleton.setToSetupPose();
@@ -236,10 +196,6 @@ function ViewerMain(props, ref) {
     }
 
     async function loadSkeleton(skeletonPath, atlasPath, initialAnimation = "v2_m_happy_laugh01_f", premultipliedAlpha = true, skin = "default") {
-        if (!Spine) {
-            throw new Error('Spine WebGL not loaded');
-        }
-        
         try {
             const atlas = spineRefs.current.assetManager.get(atlasPath);
             if (!atlas) {
@@ -414,7 +370,7 @@ function ViewerMain(props, ref) {
     }
 
     const renderSkeleton = useCallback((skeleton, state, delta) => {
-        if (!skeleton || !state || !spineRefs.current.ctx || !Spine) return;
+        if (!skeleton || !state || !spineRefs.current.ctx) return;
 
         state.update(delta);
         state.apply(skeleton);
@@ -433,7 +389,7 @@ function ViewerMain(props, ref) {
         spineRefs.current.skeletonRenderer.draw(spineRefs.current.batcher, skeleton);
         spineRefs.current.batcher.end();
         spineRefs.current.shader.unbind();
-    }, [spineSystem.currentSkeleton, Spine]);
+    }, [spineSystem.currentSkeleton]);
 
     const resize = useCallback(() => {
         if (!spineSystem.currentSkeleton?.bounds || !canvasRef.current) return;
@@ -499,29 +455,12 @@ function ViewerMain(props, ref) {
         setChibiData(prev => ({ ...prev, isLoading: true }));
 
         try {
-            // Use static GIF import
-            const GIFConstructor = GIF;
-            
-            if (typeof GIFConstructor !== 'function') {
-                console.error('GIF is not a constructor function:', typeof GIFConstructor, GIFConstructor);
-                throw new Error('GIF.js not properly loaded or not a constructor');
-            }
-
-            // Use local worker script from public folder
+            // Fetch GIF.js worker script
             let workerScriptURL;
             try {
-                // Try to use the local worker script first
-                const localWorkerPath = getBaseUrl() + 'gif.worker.js';
-                const workerResponse = await fetch(localWorkerPath, { method: 'HEAD' });
-                
-                if (workerResponse.ok) {
-                    workerScriptURL = localWorkerPath;
-                } else {
-                    // Fallback to CDN
-                    const workerScriptContent = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js').then(res => res.text());
-                    const blob = new Blob([workerScriptContent], { type: 'application/javascript' });
-                    workerScriptURL = URL.createObjectURL(blob);
-                }
+                const workerScriptContent = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js').then(res => res.text());
+                const blob = new Blob([workerScriptContent], { type: 'application/javascript' });
+                workerScriptURL = URL.createObjectURL(blob);
             } catch (e) {
                 console.error("Failed to fetch worker script:", e);
                 throw new Error("Could not load GIF worker");
@@ -541,23 +480,19 @@ function ViewerMain(props, ref) {
             // Set animation to non-looping for recording
             state.setAnimation(0, animationName, false);
 
-            // Initialize GIF encoder with proper configuration
-            const gif = new GIFConstructor({
+            // Initialize GIF encoder like in index.html
+            const gif = new GIF({
                 workers: 2,
                 quality: 10,
                 workerScript: workerScriptURL,
                 width: canvasRef.current.width,
                 height: canvasRef.current.height,
-                transparent: 0x00000000,
-                background: '#000000'
+                transparent: 0x00000000 
             });
 
             return new Promise((resolve, reject) => {
                 gif.on('finished', function(blob) {
-                    // Clean up blob URL if we created one
-                    if (workerScriptURL.startsWith('blob:')) {
-                        URL.revokeObjectURL(workerScriptURL);
-                    }
+                    URL.revokeObjectURL(workerScriptURL);
 
                     // Download the GIF
                     const url = URL.createObjectURL(blob);
@@ -584,10 +519,7 @@ function ViewerMain(props, ref) {
                 });
 
                 gif.on('abort', function() {
-                    // Clean up blob URL if we created one
-                    if (workerScriptURL.startsWith('blob:')) {
-                        URL.revokeObjectURL(workerScriptURL);
-                    }
+                    URL.revokeObjectURL(workerScriptURL);
                     spineRefs.current.isRecording = false;
                     setChibiData(prev => ({ ...prev, isLoading: false }));
                     startRenderLoop(); // Restart render loop even on abort
@@ -600,7 +532,6 @@ function ViewerMain(props, ref) {
                 
                 function captureFrame() {
                     if (time >= duration) {
-                        console.log('Starting GIF render with', gif.frames?.length || 0, 'frames');
                         gif.render();
                         return;
                     }
@@ -609,12 +540,7 @@ function ViewerMain(props, ref) {
                     renderSkeleton(skeleton, state, time === 0 ? 0 : frameTime);
                     
                     // Add frame to GIF
-                    try {
-                        gif.addFrame(canvasRef.current, { copy: true, delay: frameTime * 1000 });
-                    } catch (frameError) {
-                        console.error('Error adding frame:', frameError);
-                    }
-                    
+                    gif.addFrame(canvasRef.current, { copy: true, delay: frameTime * 1000 });
                     time += frameTime;
                     
                     requestAnimationFrame(captureFrame);
@@ -633,10 +559,10 @@ function ViewerMain(props, ref) {
     }
 
     useEffect(() => {
-        if (canvasRef.current && !spineSystem.isInitialized && Spine && !modulesLoading) {
+        if (canvasRef.current && !spineSystem.isInitialized) {
             initializeSpineSystem();
         }
-    }, [initializeSpineSystem, spineSystem.isInitialized, Spine, modulesLoading]);
+    }, [initializeSpineSystem, spineSystem.isInitialized]);
 
     useEffect(() => {
         // Only start render loop if we have a skeleton and no loop is currently running
@@ -649,20 +575,6 @@ function ViewerMain(props, ref) {
             stopRenderLoop();
         };
     }, [spineSystem.isInitialized, spineSystem.currentSkeleton, startRenderLoop, stopRenderLoop]);
-
-    // Show loading state while modules are loading
-    if (modulesLoading || !Spine) {
-        return (
-            <main style={{ width: '100%', height: '100vh', margin: 0, padding: 0 }}>
-                <div className="min-h-screen w-full flex items-center justify-center bg-[#30336d]">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
-                        <div className="text-white text-lg">Loading Spine Viewer Dependencies...</div>
-                    </div>
-                </div>
-            </main>
-        );
-    }
 
     // Prepare data for WebView
     const webViewData = {
@@ -681,7 +593,7 @@ function ViewerMain(props, ref) {
 
     return (
         <main style={{ width: '100%', height: '100vh', margin: 0, padding: 0 }}>
-            <LazyWebView {...webViewData} />
+            <WebView {...webViewData} />
         </main>
     );
 }
