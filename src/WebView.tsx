@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
-/**
- * 
- * Im gonna be honest, i designed this for 1280*720. it looks RUBBISH and is UNRESPONSIVE and IDK how to make it so.
- * help appreciated :3 tysm
- * 
- */
+import React, { useState, useEffect, useRef } from "react";
+import {NumberInput} from "@heroui/react";
+
+// export default function App() {
+//   return <NumberInput className="max-w-xs" placeholder="Enter the amount" />;
+// }
+
 interface ChibiOption {
   value: string;
   label: string;
@@ -40,6 +40,17 @@ const WebView: React.FC<WebViewProps> = ({
   const [isExporting, setIsExporting] = useState(false);
   const [showChibiDropdown, setShowChibiDropdown] = useState(false);
   const [showAnimDropdown, setShowAnimDropdown] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 720);
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 720);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Update local state when props change
   useEffect(() => {
@@ -83,14 +94,14 @@ const WebView: React.FC<WebViewProps> = ({
     backgroundColor: '#2c2c2c',
     border: '1px solid #555',
     borderRadius: '4px',
-    maxHeight: '200px',
+    maxHeight: isMobileView ? '120px' : '200px',
     overflowY: 'auto',
     zIndex: 1000,
     boxShadow: '0px 2px 6px 2px rgba(0, 0, 0, 0.25)'
   };
 
   const optionStyle: React.CSSProperties = {
-    padding: '12px 16px',
+    padding: isMobileView ? '8px 12px' : '12px 16px',
     cursor: 'pointer',
     borderBottom: '1px solid #444',
     backgroundColor: 'transparent',
@@ -105,70 +116,81 @@ const WebView: React.FC<WebViewProps> = ({
   return (
     <div style={{
       position: 'relative',
-      height: 'vh',
+      height: 'auto',
+      minHeight: '100vh',
       backgroundColor: '#424242',
-      overflow: 'hidden',
+      overflow: 'visible',
       display: 'flex',
-      justifyContent: 'center',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
       alignItems: 'center',
-      padding: '16px',
-      width: '100%'
+      padding: isMobileView ? '8px' : '16px',
+      width: '100%',
+      boxSizing: 'border-box'
     }}>
-      {/* Canvas container */}
-      <div style={{
-        position: 'absolute',
-        top: '104px',
-        right: '81px',
-        width: '512px',
-        height: '512px',
-        backgroundColor: '#d9d9d9'
-      }}>
-        <canvas 
-          ref={canvas}
-          style={{ 
-            width: '100%',
-            height: '100%',
-            display: 'block'
-          }}
-        />
-      </div>
+      
+      {/* Control Panel */}
+      <div 
+        style={{
+          width: isMobileView ? '100%' : '421px',
+          height: 'auto',
+          minHeight: isMobileView ? '200px' : '589px',
+          maxHeight: 'none',
+          backgroundColor: '#5f5f5f',
+          borderRadius: '8px',
+          position: isMobileView ? 'relative' : 'absolute',
+          top: isMobileView ? '0' : '20px',
+          left: isMobileView ? '0' : '219px',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: isMobileView ? '12px' : '24px',
+          marginBottom: isMobileView ? '12px' : '0',
+          boxSizing: 'border-box',
+          maxWidth: isMobileView ? '100%' : 'none',
+          border: isMobileView ? '2px solid #6750a4' : 'none'
+        }}
+      >
+        {/* Drag handle for mobile */}
+        {isMobileView && (
+          <div style={{
+            width: '40px',
+            height: '4px',
+            backgroundColor: '#888',
+            borderRadius: '2px',
+            margin: '0 auto 12px auto'
+          }} />
+        )}
 
-      <div style={{
-        width: '421px',
-        height: '589px',
-        backgroundColor: '#5f5f5f',
-        borderRadius: '8px',
-        position: 'absolute',
-        top: '20px',
-        left: '219px',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '24px',
-      }}>
         <h1 style={{
           color: 'white',
           fontWeight: 600,
-          fontSize: '32px',
-          margin: '0 0 32px 0',
-          fontFamily: 'Arial, sans-serif'
+          fontSize: isMobileView ? '20px' : '32px',
+          margin: '0 0 8px 0',
+          fontFamily: 'Arial, sans-serif',
+          textAlign: isMobileView ? 'center' : 'left'
         }}>
           Sekai Chibi Viewer
         </h1>
-        <p style={{ color: 'white', fontSize: '14px', marginBottom: '24px' }}>
+        
+        <p style={{ 
+          color: 'white', 
+          fontSize: isMobileView ? '10px' : '14px', 
+          marginBottom: isMobileView ? '8px' : '24px',
+          textAlign: isMobileView ? 'center' : 'left',
+          wordBreak: 'break-all'
+        }}>
           <a
             href="https://github.com/lmoadeck-Lunity/PJSK_SpineViewer"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: '#90caf9', textDecoration: 'underline' }}
           >
-            https://github.com/lmoadeck-Lunity/PJSK_SpineViewer
+            {isMobileView ? 'GitHub Repo' : 'https://github.com/lmoadeck-Lunity/PJSK_SpineViewer'}
           </a>
-          </p>
-          
-
+        </p>
         {/* Loading indicator */}
         {isLoading && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: isMobileView ? '8px' : '16px', justifyContent: isMobileView ? 'center' : 'flex-start' }}>
             <div style={{
               width: '20px',
               height: '20px',
@@ -177,7 +199,7 @@ const WebView: React.FC<WebViewProps> = ({
               borderRadius: '50%',
               animation: 'spin 1s linear infinite'
             }} />
-            <span style={{ color: 'white', fontSize: '14px' }}>Loading...</span>
+            <span style={{ color: 'white', fontSize: isMobileView ? '12px' : '14px' }}>Loading...</span>
           </div>
         )}
 
@@ -186,29 +208,30 @@ const WebView: React.FC<WebViewProps> = ({
           <div style={{
             backgroundColor: '#f8d7da',
             color: '#721c24',
-            padding: '12px',
+            padding: isMobileView ? '8px' : '12px',
             borderRadius: '4px',
-            marginBottom: '16px',
-            border: '1px solid #f5c6cb'
+            marginBottom: isMobileView ? '8px' : '16px',
+            border: '1px solid #f5c6cb',
+            fontSize: isMobileView ? '10px' : '14px'
           }}>
             {error}
           </div>
         )}
 
         {/* Chibi selector */}
-        <div style={{ marginBottom: '24px', position: 'relative' }}>
-          <label style={{ color: 'white', display: 'block', marginBottom: '8px', fontSize: '14px' }}>
+        <div style={{ marginBottom: isMobileView ? '8px' : '24px', position: 'relative' }}>
+          <label style={{ color: 'white', display: 'block', marginBottom: '4px', fontSize: isMobileView ? '12px' : '14px' }}>
             Chibi
           </label>
           <div 
             onClick={() => !isLoading && setShowChibiDropdown(!showChibiDropdown)}
             style={{
-              width: '80%',
-              height: '48px',
+              width: isMobileView ? '100%' : '80%',
+              height: isMobileView ? '36px' : '48px',
               backgroundColor: 'white',
               border: '3px solid #6750a4',
               borderRadius: '4px',
-              padding: '12px 16px',
+              padding: isMobileView ? '6px 12px' : '12px 16px',
               cursor: isLoading ? 'not-allowed' : 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -216,17 +239,31 @@ const WebView: React.FC<WebViewProps> = ({
               opacity: isLoading ? 0.6 : 1
             }}
           >
-            <span style={{ fontSize: '24px' ,color:'#000000'  }}>{selectedChibi?.label || 'Select a chibi...'}</span>
-            <span style={{ fontSize: '12px' ,color:'#000000'  }}>▼</span>
+            <span style={{ 
+              fontSize: isMobileView ? '12px' : '24px',
+              color: '#000000',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap'
+            }}>
+              {selectedChibi?.label || 'Select a chibi...'}
+            </span>
+            <span style={{ fontSize: '10px', color: '#000000', flexShrink: 0 }}>▼</span>
           </div>
           
           {showChibiDropdown && (
-            <div style={dropdownStyle}>
+            <div style={{
+              ...dropdownStyle,
+              width: isMobileView ? '100%' : 'auto'
+            }}>
               {chibis.map((chibi) => (
                 <div
                   key={chibi.value}
                   onClick={() => handleChibiSelect(chibi)}
-                  style={optionStyle}
+                  style={{
+                    ...optionStyle,
+                    fontSize: isMobileView ? '11px' : '16px'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#404040';
                   }}
@@ -242,19 +279,19 @@ const WebView: React.FC<WebViewProps> = ({
         </div>
 
         {/* Animation selector */}
-        <div style={{ marginBottom: '24px', position: 'relative' }}>
-          <label style={{ color: 'white', display: 'block', marginBottom: '8px', fontSize: '14px' }}>
+        <div style={{ marginBottom: isMobileView ? '8px' : '24px', position: 'relative' }}>
+          <label style={{ color: 'white', display: 'block', marginBottom: '4px', fontSize: isMobileView ? '12px' : '14px' }}>
             Animation
           </label>
           <div 
             onClick={() => !isLoading && selectedChibi && setShowAnimDropdown(!showAnimDropdown)}
             style={{
-              width: '80%',
-              height: '48px',
+              width: isMobileView ? '100%' : '80%',
+              height: isMobileView ? '36px' : '48px',
               backgroundColor: 'white',
               border: '3px solid #6750a4',
               borderRadius: '4px',
-              padding: '12px 16px',
+              padding: isMobileView ? '6px 12px' : '12px 16px',
               cursor: (isLoading || !selectedChibi) ? 'not-allowed' : 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -262,17 +299,31 @@ const WebView: React.FC<WebViewProps> = ({
               opacity: (isLoading || !selectedChibi) ? 0.6 : 1
             }}
           >
-            <span style={{ fontSize: '24px' ,color:'#000000'  }}>{selectedAnimation || 'Select an animation...'}</span>
-            <span style={{ fontSize: '12px' ,color:'#000000'  }}>▼</span>
+            <span style={{ 
+              fontSize: isMobileView ? '12px' : '24px',
+              color: '#000000',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap'
+            }}>
+              {selectedAnimation || 'Select an animation...'}
+            </span>
+            <span style={{ fontSize: '10px', color: '#000000', flexShrink: 0 }}>▼</span>
           </div>
           
           {showAnimDropdown && (
-            <div style={dropdownStyle}>
+            <div style={{
+              ...dropdownStyle,
+              width: isMobileView ? '100%' : 'auto'
+            }}>
               {animations.map((animation) => (
                 <div
                   key={animation}
                   onClick={() => handleAnimationSelect(animation)}
-                  style={optionStyle}
+                  style={{
+                    ...optionStyle,
+                    fontSize: isMobileView ? '11px' : '16px'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#404040';
                   }}
@@ -288,19 +339,19 @@ const WebView: React.FC<WebViewProps> = ({
         </div>
 
         {/* Export GIF button */}
-        <div style={{ marginBottom: '24px' }}>
+        <div style={{ marginBottom: isMobileView ? '8px' : '24px' }}>
           <button
             onClick={handleExportGIF}
             disabled={!selectedAnimation || isExporting || isLoading}
             style={{
               width: '100%',
-              height: '48px',
+              height: isMobileView ? '36px' : '48px',
               backgroundColor: (!selectedAnimation || isExporting || isLoading) ? '#cccccc' : '#6750a4',
               color: 'white',
               border: 'none',
               borderRadius: '4px',
               cursor: (!selectedAnimation || isExporting || isLoading) ? 'not-allowed' : 'pointer',
-              fontSize: '16px',
+              fontSize: isMobileView ? '12px' : '16px',
               fontWeight: 'bold',
               display: 'flex',
               alignItems: 'center',
@@ -311,8 +362,8 @@ const WebView: React.FC<WebViewProps> = ({
             {isExporting ? (
               <>
                 <div style={{
-                  width: '20px',
-                  height: '20px',
+                  width: isMobileView ? '16px' : '20px',
+                  height: isMobileView ? '16px' : '20px',
                   border: '2px solid transparent',
                   borderTop: '2px solid white',
                   borderRadius: '50%',
@@ -329,11 +380,21 @@ const WebView: React.FC<WebViewProps> = ({
         {/* Current status */}
         {selectedChibi && (
           <div>
-            <p style={{ color: 'white', fontSize: '14px', margin: '0 0 8px 0' }}>
+            <p style={{ 
+              color: 'white', 
+              fontSize: isMobileView ? '10px' : '14px', 
+              margin: '0 0 4px 0',
+              textAlign: isMobileView ? 'center' : 'left'
+            }}>
               Current Chibi: {selectedChibi.label}
             </p>
             {selectedAnimation && (
-              <p style={{ color: 'white', fontSize: '14px', margin: '0' }}>
+              <p style={{ 
+                color: 'white', 
+                fontSize: isMobileView ? '10px' : '14px', 
+                margin: '0',
+                textAlign: isMobileView ? 'center' : 'left'
+              }}>
                 Current Animation: {selectedAnimation}
               </p>
             )}
@@ -341,12 +402,68 @@ const WebView: React.FC<WebViewProps> = ({
         )}
       </div>
 
-      {/* Add CSS animation for spinner */}
+      {/* Canvas container */}
+      <div 
+        style={{
+          width: isMobileView ? '100%' : '512px',
+          height: isMobileView ? '350px' : '512px',
+          maxWidth: isMobileView ? '100%' : '512px',
+          backgroundColor: '#d9d9d9',
+          borderRadius: '8px',
+          position: isMobileView ? 'relative' : 'absolute',
+          top: isMobileView ? '0' : '104px',
+          right: isMobileView ? '0' : '81px',
+          boxSizing: 'border-box',
+          flexShrink: 0,
+          marginBottom: isMobileView ? '8px' : '0',
+          border: isMobileView ? '2px solid #6750a4' : 'none'
+        }}
+      >
+        {/* Visual indicator for mobile */}
+        {isMobileView && (
+          <div style={{
+            position: 'absolute',
+            top: '8px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '40px',
+            height: '4px',
+            backgroundColor: '#888',
+            borderRadius: '2px',
+            zIndex: 1001
+          }} />
+        )}
+        
+        <canvas 
+          ref={canvas}
+          style={{ 
+            width: '100%',
+            height: '100%',
+            display: 'block',
+            borderRadius: isMobileView ? '6px' : '0',
+            marginTop: isMobileView ? '12px' : '0'
+          }}
+        />
+      </div>
+
+      {/* Add CSS animation for spinner and enhanced styles */}
       <style dangerouslySetInnerHTML={{
         __html: `
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+          }
+          
+          @media (max-width: 720px) {
+            body {
+              margin: 0;
+              padding: 0;
+              overflow-y: auto;
+            }
+            
+            html {
+              overflow-y: auto;
+            }
           }
         `
       }} />
