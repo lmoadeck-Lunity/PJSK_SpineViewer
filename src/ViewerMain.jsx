@@ -592,9 +592,9 @@ function ViewerMain(props, ref) {
     };
 
     return (
-        <main style={{ width: '100%', height: '100vh', margin: 0, padding: 0 }}>
+        <div style={{ display: 'flex', width: '100%', height: '100vh' }}>
             <WebView {...webViewData} />
-        </main>
+        </div>
     );
 }
 

@@ -3,6 +3,7 @@ import { useState } from 'react'
 // import viteLogo from '/vite.svg'
 import './App.css'
 import ViewerMain from './ViewerMain'
+// import {HeroUIProvider} from "@heroui/react";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,7 +11,12 @@ function App() {
   return (
     <>
       <div className="App">
-        <ViewerMain />
+        {/* <HeroUIProvider> */}
+            <ViewerMain />
+        {/* </HeroUIProvider> */}
+          {/* <img src={reactLogo} className="logo react" alt="React logo" />
+          <img src={viteLogo} className="logo vite" alt="Vite logo" /> */}
+        
       </div>
     </>
   )

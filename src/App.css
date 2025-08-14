@@ -1,3 +1,8 @@
+@import "tailwindcss";
+@plugin './hero.ts';
+@custom-variant dark (&:is(.dark *));
+
+/* Note: You may need to change the path to fit your project structure */
 body,
 html {
   background: #1a1b1e;

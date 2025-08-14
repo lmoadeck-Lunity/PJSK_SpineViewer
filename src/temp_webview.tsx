@@ -37,8 +37,6 @@ const WebView: React.FC<WebViewProps> = ({
   const [fps, setFps] = useState<number>(30);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 720);
 
-
-
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
@@ -84,25 +82,129 @@ const WebView: React.FC<WebViewProps> = ({
     }
   };
 
+  const containerStyle: React.CSSProperties = {
+    alignItems: 'center',
+    backgroundColor: isMobileView ? '#264c65' : '#30336d',
+    display: 'flex',
+    flexDirection: isMobileView ? 'column' : 'row',
+    gap: isMobileView ? '20px' : '75px',
+    minHeight: isMobileView ? '100vh' : '600px',
+    minWidth: isMobileView ? '100%' : '800px',
+    padding: isMobileView ? '20px' : '56px 34px',
+    position: 'relative',
+    width: '100%'
+  };
+
+  const controlPanelStyle: React.CSSProperties = {
+    backgroundColor: '#254c64',
+    borderRadius: '10px',
+    padding: '20px',
+    width: isMobileView ? '100%' : '320px',
+    maxWidth: isMobileView ? '430px' : '320px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px'
+  };
+
+  const canvasContainerStyle: React.CSSProperties = {
+    backgroundColor: '#2d2d2d',
+    borderRadius: '5px',
+    height: isMobileView ? '300px' : '335px',
+    width: isMobileView ? '300px' : '335px',
+    maxWidth: isMobileView ? '90vw' : '335px',
+    maxHeight: isMobileView ? '50vh' : '335px',
+    position: 'relative',
+    overflow: 'hidden'
+  };
+
+  const titleStyle: React.CSSProperties = {
+    color: '#ffffff',
+    fontSize: '18px',
+    fontWeight: '500',
+    textAlign: 'center',
+    marginBottom: '16px'
+  };
+
+  const exportButtonStyle: React.CSSProperties = {
+    backgroundColor: isExporting || !selectedAnimation ? '#666' : '#218964',
+    borderRadius: '7px',
+    border: 'none',
+    color: '#ffffff',
+    cursor: isExporting || !selectedAnimation ? 'not-allowed' : 'pointer',
+    fontSize: '12px',
+    fontWeight: '400',
+    padding: '12px 24px',
+    textAlign: 'center',
+    width: '100%',
+    marginTop: '16px',
+    transition: 'background-color 0.2s'
+  };
+
   return (
-    <div className={`min-h-screen w-full flex ${isMobileView ? 'flex-col bg-[#264c65]' : 'flex-row bg-[#30336d]'} items-center ${isMobileView ? 'gap-5 p-5' : 'gap-[75px] p-14'} relative`}>
+    <>
+      <style>{`
+        :root {
+          --heroui-default-foreground: 255 255 255;
+        }
+        .heroui-select [data-slot="trigger"] * {
+          color: white !important;
+        }
+        .heroui-select [data-slot="value"] * {
+          color: white !important;
+        }
+        .heroui-select [data-slot="label"] {
+          color: white !important;
+        }
+        .heroui-number-input [data-slot="input"] {
+          color: white !important;
+        }
+        .heroui-number-input [data-slot="label"] {
+          color: white !important;
+        }
+        .heroui-listbox [data-slot="item"] {
+          color: white !important;
+        }
+        .group[data-has-value="true"] * {
+          color: white !important;
+        }
+        .group-data-\\[has-value\\=true\\]\\:text-default-foreground {
+          color: white !important;
+        }
+        [data-slot="trigger"][data-focus="true"] {
+          border-color: white !important;
+        }
+        [data-slot="trigger"][data-open="true"] {
+          border-color: white !important;
+        }
+        [data-slot="trigger"][data-hover="true"] {
+          border-color: rgba(255, 255, 255, 0.6) !important;
+        }
+        [data-slot="trigger"][data-hover="true"] * {
+          color: white !important;
+        }
+        [data-slot="item"][data-hover="true"] {
+          color: white !important;
+        }
+        [data-slot="item"][data-hover="true"] * {
+          color: white !important;
+        }
+      `}</style>
+      <div style={containerStyle}>
       {isMobileView && (
-        <div className="bg-[#2d2d2d] rounded-[5px] w-[300px] h-[300px] max-w-[90vw] max-h-[50vh] relative overflow-hidden">
+        <div style={canvasContainerStyle}>
           <canvas
             ref={canvas}
-            className="w-full h-full bg-transparent"
+            style={{ width: '100%', height: '100%' }}
             aria-label="Spine Animation Canvas"
           />
         </div>
       )}
 
-      <div className={`bg-[#254c64] rounded-lg p-5 flex flex-col gap-6 ${isMobileView ? 'w-full max-w-[430px]' : 'w-80 max-w-80'}`}>
-        <div className="text-white text-lg font-medium text-center mb-4">
-          Project Sekai Chibi Viewer
-        </div>
+      <div style={controlPanelStyle}>
+        <div style={titleStyle}>Project Sekai Chibi Viewer</div>
         
         {error && (
-          <div className="text-red-400 text-sm text-center">
+          <div style={{ color: '#ff6b6b', fontSize: '14px', textAlign: 'center' }}>
             {error}
           </div>
         )}
@@ -111,7 +213,7 @@ const WebView: React.FC<WebViewProps> = ({
           aria-label="Chibi Selector"
           label="Chibi Selector"
           placeholder="Select a chibi"
-          variant="flat"
+          variant="bordered"
           labelPlacement="outside"
           selectedKeys={selectedChibi ? [selectedChibi.value] : []}
           onSelectionChange={(keys) => {
@@ -119,17 +221,17 @@ const WebView: React.FC<WebViewProps> = ({
             if (key) handleChibiSelect(key);
           }}
           isDisabled={isLoading}
-          className="w-full"
+          style={{ width: '100%', color: 'white' }}
           classNames={{
-            label: "text-white text-sm font-medium mb-2",
-            trigger: "bg-white/10 border-white/20 text-white",
+            trigger: "text-white",
             value: "text-white",
-            popoverContent: "bg-gray-800 border-gray-600",
-            listboxWrapper: "max-h-60"
+            label: "text-white",
+            listboxWrapper: "text-white",
+            popoverContent: "bg-gray-800"
           }}
         >
           {chibis.map((chibi) => (
-            <SelectItem key={chibi.value} className="text-white data-[hover=true]:bg-gray-700">
+            <SelectItem key={chibi.value} className="text-white">
               {chibi.label}
             </SelectItem>
           ))}
@@ -139,7 +241,7 @@ const WebView: React.FC<WebViewProps> = ({
           aria-label="Animation Selector"
           label="Animation Selector"
           placeholder="Select an animation"
-          variant="flat"
+          variant="bordered"
           labelPlacement="outside"
           selectedKeys={selectedAnimation ? [selectedAnimation] : []}
           onSelectionChange={(keys) => {
@@ -147,17 +249,17 @@ const WebView: React.FC<WebViewProps> = ({
             if (key) handleAnimationSelect(key);
           }}
           isDisabled={isLoading || !selectedChibi}
-          className="w-full"
+          style={{ width: '100%', color: 'white' }}
           classNames={{
-            label: "text-white text-sm font-medium mb-2",
-            trigger: "bg-white/10 border-white/20 text-white",
+            trigger: "text-white",
             value: "text-white",
-            popoverContent: "bg-gray-800 border-gray-600",
-            listboxWrapper: "max-h-60"
+            label: "text-white",
+            listboxWrapper: "text-white",
+            popoverContent: "bg-gray-800"
           }}
         >
           {animations.map((animation) => (
-            <SelectItem key={animation} className="text-white data-[hover=true]:bg-gray-700">
+            <SelectItem key={animation} className="text-white">
               {animation}
             </SelectItem>
           ))}
@@ -174,20 +276,15 @@ const WebView: React.FC<WebViewProps> = ({
           minValue={10}
           maxValue={60}
           step={1}
-          className="w-full"
+          style={{ width: '100%', color: 'white' }}
           classNames={{
-            label: "text-white text-sm font-medium mb-2",
             input: "text-white",
-            inputWrapper: "bg-white/10 border-white/20 data-[hover=true]:border-white/40 group-data-[focus=true]:border-white/60"
+            label: "text-white"
           }}
         />
 
         <button
-          className={`w-full py-3 px-6 rounded-lg text-white text-sm font-medium transition-colors duration-200 ${
-            isExporting || !selectedAnimation 
-              ? 'bg-gray-600 cursor-not-allowed' 
-              : 'bg-[#218964] hover:bg-[#1a6b4f] focus:outline-none focus:ring-2 focus:ring-[#218964] focus:ring-offset-2 focus:ring-offset-[#254c64]'
-          }`}
+          style={exportButtonStyle}
           onClick={handleExportGIF}
           disabled={isExporting || !selectedAnimation}
           aria-label="Export GIF"
@@ -196,23 +293,23 @@ const WebView: React.FC<WebViewProps> = ({
         </button>
 
         {isLoading && (
-          <div className="text-white text-sm text-center flex items-center justify-center gap-2">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+          <div style={{ color: '#ffffff', fontSize: '14px', textAlign: 'center' }}>
             Loading...
           </div>
         )}
       </div>
 
       {!isMobileView && (
-        <div className="bg-[#2d2d2d] rounded-[5px] w-[335px] h-[335px] relative overflow-hidden">
+        <div style={canvasContainerStyle}>
           <canvas
             ref={canvas}
-            className="w-full h-full bg-transparent"
+            style={{ width: '100%', height: '100%' }}
             aria-label="Spine Animation Canvas"
           />
         </div>
       )}
     </div>
+    </>
   );
 };
 
