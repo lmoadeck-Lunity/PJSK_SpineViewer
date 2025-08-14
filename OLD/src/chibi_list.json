@@ -1,0 +1,915 @@
+[
+  {
+    "value": "base_model",
+    "label": "base_model"
+  },
+  {
+    "value": "sd_01ichika_cloth001",
+    "label": "sd_01ichika_cloth001"
+  },
+  {
+    "value": "sd_01ichika_kakizome",
+    "label": "sd_01ichika_kakizome"
+  },
+  {
+    "value": "sd_01ichika_normal",
+    "label": "sd_01ichika_normal"
+  },
+  {
+    "value": "sd_02saki_cloth001",
+    "label": "sd_02saki_cloth001"
+  },
+  {
+    "value": "sd_02saki_kakizome",
+    "label": "sd_02saki_kakizome"
+  },
+  {
+    "value": "sd_02saki_normal",
+    "label": "sd_02saki_normal"
+  },
+  {
+    "value": "sd_03honami_cloth001",
+    "label": "sd_03honami_cloth001"
+  },
+  {
+    "value": "sd_03honami_kakizome",
+    "label": "sd_03honami_kakizome"
+  },
+  {
+    "value": "sd_03honami_normal",
+    "label": "sd_03honami_normal"
+  },
+  {
+    "value": "sd_04shiho_aprilfool2022",
+    "label": "sd_04shiho_aprilfool2022"
+  },
+  {
+    "value": "sd_04shiho_cloth001",
+    "label": "sd_04shiho_cloth001"
+  },
+  {
+    "value": "sd_04shiho_kakizome",
+    "label": "sd_04shiho_kakizome"
+  },
+  {
+    "value": "sd_04shiho_normal",
+    "label": "sd_04shiho_normal"
+  },
+  {
+    "value": "sd_05minori_cloth001",
+    "label": "sd_05minori_cloth001"
+  },
+  {
+    "value": "sd_05minori_miko",
+    "label": "sd_05minori_miko"
+  },
+  {
+    "value": "sd_05minori_normal",
+    "label": "sd_05minori_normal"
+  },
+  {
+    "value": "sd_05minori_unit",
+    "label": "sd_05minori_unit"
+  },
+  {
+    "value": "sd_06haruka_aprilfool2022",
+    "label": "sd_06haruka_aprilfool2022"
+  },
+  {
+    "value": "sd_06haruka_cloth001",
+    "label": "sd_06haruka_cloth001"
+  },
+  {
+    "value": "sd_06haruka_miko",
+    "label": "sd_06haruka_miko"
+  },
+  {
+    "value": "sd_06haruka_normal",
+    "label": "sd_06haruka_normal"
+  },
+  {
+    "value": "sd_06haruka_unit",
+    "label": "sd_06haruka_unit"
+  },
+  {
+    "value": "sd_07airi_cloth001",
+    "label": "sd_07airi_cloth001"
+  },
+  {
+    "value": "sd_07airi_miko",
+    "label": "sd_07airi_miko"
+  },
+  {
+    "value": "sd_07airi_normal",
+    "label": "sd_07airi_normal"
+  },
+  {
+    "value": "sd_07airi_unit",
+    "label": "sd_07airi_unit"
+  },
+  {
+    "value": "sd_08shizuku_cloth001",
+    "label": "sd_08shizuku_cloth001"
+  },
+  {
+    "value": "sd_08shizuku_miko",
+    "label": "sd_08shizuku_miko"
+  },
+  {
+    "value": "sd_08shizuku_normal",
+    "label": "sd_08shizuku_normal"
+  },
+  {
+    "value": "sd_08shizuku_unit",
+    "label": "sd_08shizuku_unit"
+  },
+  {
+    "value": "sd_09kohane_normal",
+    "label": "sd_09kohane_normal"
+  },
+  {
+    "value": "sd_09kohane_unit",
+    "label": "sd_09kohane_unit"
+  },
+  {
+    "value": "sd_10an_normal",
+    "label": "sd_10an_normal"
+  },
+  {
+    "value": "sd_10an_unit",
+    "label": "sd_10an_unit"
+  },
+  {
+    "value": "sd_11akito_normal",
+    "label": "sd_11akito_normal"
+  },
+  {
+    "value": "sd_11akito_unit",
+    "label": "sd_11akito_unit"
+  },
+  {
+    "value": "sd_12touya_normal",
+    "label": "sd_12touya_normal"
+  },
+  {
+    "value": "sd_12touya_unit",
+    "label": "sd_12touya_unit"
+  },
+  {
+    "value": "sd_13tsukasa_cloth001",
+    "label": "sd_13tsukasa_cloth001"
+  },
+  {
+    "value": "sd_13tsukasa_normal",
+    "label": "sd_13tsukasa_normal"
+  },
+  {
+    "value": "sd_14emu_cloth001",
+    "label": "sd_14emu_cloth001"
+  },
+  {
+    "value": "sd_14emu_normal",
+    "label": "sd_14emu_normal"
+  },
+  {
+    "value": "sd_14emu_unit",
+    "label": "sd_14emu_unit"
+  },
+  {
+    "value": "sd_15nene_cloth001",
+    "label": "sd_15nene_cloth001"
+  },
+  {
+    "value": "sd_15nene_normal",
+    "label": "sd_15nene_normal"
+  },
+  {
+    "value": "sd_16rui_cloth001",
+    "label": "sd_16rui_cloth001"
+  },
+  {
+    "value": "sd_16rui_normal",
+    "label": "sd_16rui_normal"
+  },
+  {
+    "value": "sd_17kanade_aprilfool2022",
+    "label": "sd_17kanade_aprilfool2022"
+  },
+  {
+    "value": "sd_17kanade_aprilfool2023",
+    "label": "sd_17kanade_aprilfool2023"
+  },
+  {
+    "value": "sd_17kanade_kotatsu",
+    "label": "sd_17kanade_kotatsu"
+  },
+  {
+    "value": "sd_17kanade_normal",
+    "label": "sd_17kanade_normal"
+  },
+  {
+    "value": "sd_18mafuyu_cloth001",
+    "label": "sd_18mafuyu_cloth001"
+  },
+  {
+    "value": "sd_18mafuyu_kotatsu",
+    "label": "sd_18mafuyu_kotatsu"
+  },
+  {
+    "value": "sd_18mafuyu_normal",
+    "label": "sd_18mafuyu_normal"
+  },
+  {
+    "value": "sd_19ena_cloth001",
+    "label": "sd_19ena_cloth001"
+  },
+  {
+    "value": "sd_19ena_kotatsu",
+    "label": "sd_19ena_kotatsu"
+  },
+  {
+    "value": "sd_19ena_normal",
+    "label": "sd_19ena_normal"
+  },
+  {
+    "value": "sd_20mizuki_cloth001",
+    "label": "sd_20mizuki_cloth001"
+  },
+  {
+    "value": "sd_20mizuki_kotatsu",
+    "label": "sd_20mizuki_kotatsu"
+  },
+  {
+    "value": "sd_20mizuki_normal",
+    "label": "sd_20mizuki_normal"
+  },
+  {
+    "value": "sd_21miku_akuno",
+    "label": "sd_21miku_akuno"
+  },
+  {
+    "value": "sd_21miku_band",
+    "label": "sd_21miku_band"
+  },
+  {
+    "value": "sd_21miku_band_r",
+    "label": "sd_21miku_band_r"
+  },
+  {
+    "value": "sd_21miku_idol",
+    "label": "sd_21miku_idol"
+  },
+  {
+    "value": "sd_21miku_idol_r",
+    "label": "sd_21miku_idol_r"
+  },
+  {
+    "value": "sd_21miku_kakizome",
+    "label": "sd_21miku_kakizome"
+  },
+  {
+    "value": "sd_21miku_kotatsu",
+    "label": "sd_21miku_kotatsu"
+  },
+  {
+    "value": "sd_21miku_miko",
+    "label": "sd_21miku_miko"
+  },
+  {
+    "value": "sd_21miku_night",
+    "label": "sd_21miku_night"
+  },
+  {
+    "value": "sd_21miku_night_aprilfool2023",
+    "label": "sd_21miku_night_aprilfool2023"
+  },
+  {
+    "value": "sd_21miku_night_r",
+    "label": "sd_21miku_night_r"
+  },
+  {
+    "value": "sd_21miku_normal",
+    "label": "sd_21miku_normal"
+  },
+  {
+    "value": "sd_21miku_normal_r",
+    "label": "sd_21miku_normal_r"
+  },
+  {
+    "value": "sd_21miku_street",
+    "label": "sd_21miku_street"
+  },
+  {
+    "value": "sd_21miku_street_r",
+    "label": "sd_21miku_street_r"
+  },
+  {
+    "value": "sd_21miku_wonder",
+    "label": "sd_21miku_wonder"
+  },
+  {
+    "value": "sd_21miku_wonder_r",
+    "label": "sd_21miku_wonder_r"
+  },
+  {
+    "value": "sd_22rin_akuno",
+    "label": "sd_22rin_akuno"
+  },
+  {
+    "value": "sd_22rin_band",
+    "label": "sd_22rin_band"
+  },
+  {
+    "value": "sd_22rin_band_r",
+    "label": "sd_22rin_band_r"
+  },
+  {
+    "value": "sd_22rin_idol",
+    "label": "sd_22rin_idol"
+  },
+  {
+    "value": "sd_22rin_idol_aprilfool2023",
+    "label": "sd_22rin_idol_aprilfool2023"
+  },
+  {
+    "value": "sd_22rin_idol_r",
+    "label": "sd_22rin_idol_r"
+  },
+  {
+    "value": "sd_22rin_kakizome",
+    "label": "sd_22rin_kakizome"
+  },
+  {
+    "value": "sd_22rin_kotatsu",
+    "label": "sd_22rin_kotatsu"
+  },
+  {
+    "value": "sd_22rin_miko",
+    "label": "sd_22rin_miko"
+  },
+  {
+    "value": "sd_22rin_night",
+    "label": "sd_22rin_night"
+  },
+  {
+    "value": "sd_22rin_night_r",
+    "label": "sd_22rin_night_r"
+  },
+  {
+    "value": "sd_22rin_normal",
+    "label": "sd_22rin_normal"
+  },
+  {
+    "value": "sd_22rin_normal_r",
+    "label": "sd_22rin_normal_r"
+  },
+  {
+    "value": "sd_22rin_street",
+    "label": "sd_22rin_street"
+  },
+  {
+    "value": "sd_22rin_street_r",
+    "label": "sd_22rin_street_r"
+  },
+  {
+    "value": "sd_22rin_wonder",
+    "label": "sd_22rin_wonder"
+  },
+  {
+    "value": "sd_22rin_wonder_r",
+    "label": "sd_22rin_wonder_r"
+  },
+  {
+    "value": "sd_23len_akuno",
+    "label": "sd_23len_akuno"
+  },
+  {
+    "value": "sd_23len_band",
+    "label": "sd_23len_band"
+  },
+  {
+    "value": "sd_23len_band_r",
+    "label": "sd_23len_band_r"
+  },
+  {
+    "value": "sd_23len_idol",
+    "label": "sd_23len_idol"
+  },
+  {
+    "value": "sd_23len_idol_r",
+    "label": "sd_23len_idol_r"
+  },
+  {
+    "value": "sd_23len_kakizome",
+    "label": "sd_23len_kakizome"
+  },
+  {
+    "value": "sd_23len_miko",
+    "label": "sd_23len_miko"
+  },
+  {
+    "value": "sd_23len_night",
+    "label": "sd_23len_night"
+  },
+  {
+    "value": "sd_23len_normal",
+    "label": "sd_23len_normal"
+  },
+  {
+    "value": "sd_23len_normal_r",
+    "label": "sd_23len_normal_r"
+  },
+  {
+    "value": "sd_23len_street",
+    "label": "sd_23len_street"
+  },
+  {
+    "value": "sd_23len_street_aprilfool2023",
+    "label": "sd_23len_street_aprilfool2023"
+  },
+  {
+    "value": "sd_23len_street_r",
+    "label": "sd_23len_street_r"
+  },
+  {
+    "value": "sd_23len_wonder",
+    "label": "sd_23len_wonder"
+  },
+  {
+    "value": "sd_23len_wonder_r",
+    "label": "sd_23len_wonder_r"
+  },
+  {
+    "value": "sd_24luka_akuno",
+    "label": "sd_24luka_akuno"
+  },
+  {
+    "value": "sd_24luka_band",
+    "label": "sd_24luka_band"
+  },
+  {
+    "value": "sd_24luka_band_aprilfool2023",
+    "label": "sd_24luka_band_aprilfool2023"
+  },
+  {
+    "value": "sd_24luka_band_r",
+    "label": "sd_24luka_band_r"
+  },
+  {
+    "value": "sd_24luka_idol",
+    "label": "sd_24luka_idol"
+  },
+  {
+    "value": "sd_24luka_idol_r",
+    "label": "sd_24luka_idol_r"
+  },
+  {
+    "value": "sd_24luka_kakizome",
+    "label": "sd_24luka_kakizome"
+  },
+  {
+    "value": "sd_24luka_kotatsu",
+    "label": "sd_24luka_kotatsu"
+  },
+  {
+    "value": "sd_24luka_miko",
+    "label": "sd_24luka_miko"
+  },
+  {
+    "value": "sd_24luka_night",
+    "label": "sd_24luka_night"
+  },
+  {
+    "value": "sd_24luka_night_r",
+    "label": "sd_24luka_night_r"
+  },
+  {
+    "value": "sd_24luka_normal",
+    "label": "sd_24luka_normal"
+  },
+  {
+    "value": "sd_24luka_normal_r",
+    "label": "sd_24luka_normal_r"
+  },
+  {
+    "value": "sd_24luka_street",
+    "label": "sd_24luka_street"
+  },
+  {
+    "value": "sd_24luka_street_r",
+    "label": "sd_24luka_street_r"
+  },
+  {
+    "value": "sd_24luka_wonder",
+    "label": "sd_24luka_wonder"
+  },
+  {
+    "value": "sd_24luka_wonder_r",
+    "label": "sd_24luka_wonder_r"
+  },
+  {
+    "value": "sd_25meiko_akuno",
+    "label": "sd_25meiko_akuno"
+  },
+  {
+    "value": "sd_25meiko_band",
+    "label": "sd_25meiko_band"
+  },
+  {
+    "value": "sd_25meiko_band_r",
+    "label": "sd_25meiko_band_r"
+  },
+  {
+    "value": "sd_25meiko_idol",
+    "label": "sd_25meiko_idol"
+  },
+  {
+    "value": "sd_25meiko_idol_r",
+    "label": "sd_25meiko_idol_r"
+  },
+  {
+    "value": "sd_25meiko_kakizome",
+    "label": "sd_25meiko_kakizome"
+  },
+  {
+    "value": "sd_25meiko_kotatsu",
+    "label": "sd_25meiko_kotatsu"
+  },
+  {
+    "value": "sd_25meiko_miko",
+    "label": "sd_25meiko_miko"
+  },
+  {
+    "value": "sd_25meiko_night",
+    "label": "sd_25meiko_night"
+  },
+  {
+    "value": "sd_25meiko_night_r",
+    "label": "sd_25meiko_night_r"
+  },
+  {
+    "value": "sd_25meiko_normal",
+    "label": "sd_25meiko_normal"
+  },
+  {
+    "value": "sd_25meiko_normal_r",
+    "label": "sd_25meiko_normal_r"
+  },
+  {
+    "value": "sd_25meiko_street",
+    "label": "sd_25meiko_street"
+  },
+  {
+    "value": "sd_25meiko_street_aprilfool2023",
+    "label": "sd_25meiko_street_aprilfool2023"
+  },
+  {
+    "value": "sd_25meiko_street_r",
+    "label": "sd_25meiko_street_r"
+  },
+  {
+    "value": "sd_25meiko_wonder",
+    "label": "sd_25meiko_wonder"
+  },
+  {
+    "value": "sd_25meiko_wonder_r",
+    "label": "sd_25meiko_wonder_r"
+  },
+  {
+    "value": "sd_26kaito_akuno",
+    "label": "sd_26kaito_akuno"
+  },
+  {
+    "value": "sd_26kaito_band",
+    "label": "sd_26kaito_band"
+  },
+  {
+    "value": "sd_26kaito_band_r",
+    "label": "sd_26kaito_band_r"
+  },
+  {
+    "value": "sd_26kaito_idol",
+    "label": "sd_26kaito_idol"
+  },
+  {
+    "value": "sd_26kaito_idol_r",
+    "label": "sd_26kaito_idol_r"
+  },
+  {
+    "value": "sd_26kaito_kakizome",
+    "label": "sd_26kaito_kakizome"
+  },
+  {
+    "value": "sd_26kaito_miko",
+    "label": "sd_26kaito_miko"
+  },
+  {
+    "value": "sd_26kaito_night",
+    "label": "sd_26kaito_night"
+  },
+  {
+    "value": "sd_26kaito_normal",
+    "label": "sd_26kaito_normal"
+  },
+  {
+    "value": "sd_26kaito_normal_r",
+    "label": "sd_26kaito_normal_r"
+  },
+  {
+    "value": "sd_26kaito_street",
+    "label": "sd_26kaito_street"
+  },
+  {
+    "value": "sd_26kaito_street_r",
+    "label": "sd_26kaito_street_r"
+  },
+  {
+    "value": "sd_26kaito_wonder",
+    "label": "sd_26kaito_wonder"
+  },
+  {
+    "value": "sd_26kaito_wonder_aprilfool2023",
+    "label": "sd_26kaito_wonder_aprilfool2023"
+  },
+  {
+    "value": "sd_26kaito_wonder_r",
+    "label": "sd_26kaito_wonder_r"
+  },
+  {
+    "value": "sd_liondancerobot",
+    "label": "sd_liondancerobot"
+  },
+  {
+    "value": "sd_mikudayo_aprilfool2023",
+    "label": "sd_mikudayo_aprilfool2023"
+  },
+  {
+    "value": "sd_mob001",
+    "label": "sd_mob001"
+  },
+  {
+    "value": "sd_mob002",
+    "label": "sd_mob002"
+  },
+  {
+    "value": "sd_mob003",
+    "label": "sd_mob003"
+  },
+  {
+    "value": "sd_mob004",
+    "label": "sd_mob004"
+  },
+  {
+    "value": "sd_mob005",
+    "label": "sd_mob005"
+  },
+  {
+    "value": "sd_mob006",
+    "label": "sd_mob006"
+  },
+  {
+    "value": "sd_mob007",
+    "label": "sd_mob007"
+  },
+  {
+    "value": "sd_mob008",
+    "label": "sd_mob008"
+  },
+  {
+    "value": "sd_mob009",
+    "label": "sd_mob009"
+  },
+  {
+    "value": "sd_mob010",
+    "label": "sd_mob010"
+  },
+  {
+    "value": "sd_mob011",
+    "label": "sd_mob011"
+  },
+  {
+    "value": "sd_mob012",
+    "label": "sd_mob012"
+  },
+  {
+    "value": "sd_mob013",
+    "label": "sd_mob013"
+  },
+  {
+    "value": "sd_mob014",
+    "label": "sd_mob014"
+  },
+  {
+    "value": "sd_mob015",
+    "label": "sd_mob015"
+  },
+  {
+    "value": "sd_mob016",
+    "label": "sd_mob016"
+  },
+  {
+    "value": "sd_mob017",
+    "label": "sd_mob017"
+  },
+  {
+    "value": "sd_mob018",
+    "label": "sd_mob018"
+  },
+  {
+    "value": "sd_mob019",
+    "label": "sd_mob019"
+  },
+  {
+    "value": "sd_mob020",
+    "label": "sd_mob020"
+  },
+  {
+    "value": "sd_mob021",
+    "label": "sd_mob021"
+  },
+  {
+    "value": "sd_mob022",
+    "label": "sd_mob022"
+  },
+  {
+    "value": "sd_mob023",
+    "label": "sd_mob023"
+  },
+  {
+    "value": "sd_mob024",
+    "label": "sd_mob024"
+  },
+  {
+    "value": "sd_mob025",
+    "label": "sd_mob025"
+  },
+  {
+    "value": "sd_mob026",
+    "label": "sd_mob026"
+  },
+  {
+    "value": "sd_mob027",
+    "label": "sd_mob027"
+  },
+  {
+    "value": "sd_mob028",
+    "label": "sd_mob028"
+  },
+  {
+    "value": "sd_mob029",
+    "label": "sd_mob029"
+  },
+  {
+    "value": "sd_mob030",
+    "label": "sd_mob030"
+  },
+  {
+    "value": "sd_mob031",
+    "label": "sd_mob031"
+  },
+  {
+    "value": "sd_mob032",
+    "label": "sd_mob032"
+  },
+  {
+    "value": "sd_mob033",
+    "label": "sd_mob033"
+  },
+  {
+    "value": "sd_mob034",
+    "label": "sd_mob034"
+  },
+  {
+    "value": "sd_mob035",
+    "label": "sd_mob035"
+  },
+  {
+    "value": "sd_mob036",
+    "label": "sd_mob036"
+  },
+  {
+    "value": "sd_mob037",
+    "label": "sd_mob037"
+  },
+  {
+    "value": "sd_mob038",
+    "label": "sd_mob038"
+  },
+  {
+    "value": "sd_mob039",
+    "label": "sd_mob039"
+  },
+  {
+    "value": "sd_mob040",
+    "label": "sd_mob040"
+  },
+  {
+    "value": "sd_mob041",
+    "label": "sd_mob041"
+  },
+  {
+    "value": "sd_mob042",
+    "label": "sd_mob042"
+  },
+  {
+    "value": "sd_mob043",
+    "label": "sd_mob043"
+  },
+  {
+    "value": "sd_mob044",
+    "label": "sd_mob044"
+  },
+  {
+    "value": "sd_mob045",
+    "label": "sd_mob045"
+  },
+  {
+    "value": "sd_mob046",
+    "label": "sd_mob046"
+  },
+  {
+    "value": "sd_mob047",
+    "label": "sd_mob047"
+  },
+  {
+    "value": "sd_mob048",
+    "label": "sd_mob048"
+  },
+  {
+    "value": "sd_mob049",
+    "label": "sd_mob049"
+  },
+  {
+    "value": "sd_mob050",
+    "label": "sd_mob050"
+  },
+  {
+    "value": "sd_mob051",
+    "label": "sd_mob051"
+  },
+  {
+    "value": "sd_mob052",
+    "label": "sd_mob052"
+  },
+  {
+    "value": "sd_mob053",
+    "label": "sd_mob053"
+  },
+  {
+    "value": "sd_mob054",
+    "label": "sd_mob054"
+  },
+  {
+    "value": "sd_school_garden_m",
+    "label": "sd_school_garden_m"
+  },
+  {
+    "value": "sd_school_garden_w",
+    "label": "sd_school_garden_w"
+  },
+  {
+    "value": "sd_staff001",
+    "label": "sd_staff001"
+  },
+  {
+    "value": "sd_staff002",
+    "label": "sd_staff002"
+  },
+  {
+    "value": "sd_staff003",
+    "label": "sd_staff003"
+  },
+  {
+    "value": "sd_staff004",
+    "label": "sd_staff004"
+  },
+  {
+    "value": "sd_staff005",
+    "label": "sd_staff005"
+  },
+  {
+    "value": "sd_staff006",
+    "label": "sd_staff006"
+  },
+  {
+    "value": "sd_staff007",
+    "label": "sd_staff007"
+  },
+  {
+    "value": "sd_staff008",
+    "label": "sd_staff008"
+  },
+  {
+    "value": "sd_staff009",
+    "label": "sd_staff009"
+  },
+  {
+    "value": "sd_23len_night_r",
+    "label": "sd_23len_night_r"
+  },
+  {
+    "value": "sd_26kaito_night_r",
+    "label": "sd_26kaito_night_r"
+  }
+
+]

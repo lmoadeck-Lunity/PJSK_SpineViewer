@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@plugin './hero.ts';
+@custom-variant dark (&:is(.dark *));
+
+/* Note: You may need to change the path to fit your project structure */
+body,
+html {
+  background: #1a1b1e;
+}
+
+/* canvas {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 18px,
+    #2c2e33 18px,
+    #2c2e33 20px
+  );
+} */
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 720px) {
+  main {
+    flex-direction: column;
+    padding-top: 100px;
+  }
+}
+
+.rui {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
